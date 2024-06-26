@@ -36,6 +36,21 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+  ];
+
+  List<bool> answers = [
+    false,
+    true,
+    true,
+  ];
+
+  int questionsNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +63,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionsNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -65,9 +80,25 @@ class _QuizPageState extends State<QuizPage> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18.0),
+                textStyle: const TextStyle(fontSize: 20.0),
               ),
-              onPressed: () {},
+              onPressed: () {
+                bool correctAnswer = answers[questionsNumber];
+                if (correctAnswer == true) {
+                  print('User Got it Right!');
+                } else {
+                  print('User got it Wrong!');
+                }
+                setState(() {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                  questionsNumber++;
+                });
+              },
               child: const Text('True'),
             ),
           ),
@@ -79,13 +110,35 @@ class _QuizPageState extends State<QuizPage> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 18.0),
+                textStyle: const TextStyle(fontSize: 20.0),
               ),
-              onPressed: () {},
+              onPressed: () {
+                bool correctAnswer = answers[questionsNumber];
+                if (correctAnswer == false) {
+                  print('User Got it Right!');
+                } else {
+                  print('User got it Wrong!');
+                }
+                setState(() {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                  questionsNumber++;
+                });
+              },
               child: const Text('False'),
             ),
           ),
         ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: scoreKeeper,
+          ),
+        )
       ],
     );
   }
