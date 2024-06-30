@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizzler/quiz_DataBase.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:quizzler/quiz_database.dart';
 
 QuizDatabase quizDatabase = QuizDatabase();
 void main() => runApp(QuizzlerApp());
@@ -44,22 +45,34 @@ class _QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizDatabase.getCorrectAnswer();
 
     setState(() {
-      if (pickUserAnswer == correctAnswer) {
-        scoreKeeper.add(
-          Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-        );
+      if (quizDatabase.isFinished() == true) {
+        Alert(
+          type: AlertType.success,
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+        ).show();
+
+        quizDatabase.reset();
+        scoreKeeper = [];
       } else {
-        scoreKeeper.add(
-          Icon(
-            Icons.close,
-            color: Colors.red,
-          ),
-        );
+        if (pickUserAnswer == correctAnswer) {
+          scoreKeeper.add(
+            Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+        } else {
+          scoreKeeper.add(
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+        quizDatabase.newQuestion();
       }
-      quizDatabase.newQuestion();
     });
   }
 

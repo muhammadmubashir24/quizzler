@@ -36,8 +36,8 @@ class QuizDatabase {
     if (_questionsNumber < _questionsBank.length - 1) {
       _questionsNumber++;
     }
-    // print(_questionsNumber);
-    // print(_questionsBank.length);
+    print(_questionsNumber);
+    print(_questionsBank.length);
   }
 
   String getQuestionText() {
@@ -46,5 +46,18 @@ class QuizDatabase {
 
   bool getCorrectAnswer() {
     return _questionsBank[_questionsNumber].answerText;
+  }
+
+  bool isFinished() {
+    if (_questionsNumber >= _questionsBank.length - 1) {
+      print('Now returning true = Quiz Finished');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void reset() {
+    _questionsNumber = 0;
   }
 }
