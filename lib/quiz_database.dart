@@ -1,6 +1,7 @@
 import 'questions.dart';
 
 int _questionsNumber = 0;
+int _correctAnswersCount = 0;
 
 class QuizDatabase {
   List<Questions> _questionsBank = [
@@ -59,5 +60,20 @@ class QuizDatabase {
 
   void reset() {
     _questionsNumber = 0;
+    _correctAnswersCount = 0;
+  }
+
+  void incrementCorrectAnswersCount() {
+    _correctAnswersCount++;
+  }
+
+  int get correctAnswersCount => _correctAnswersCount;
+  int get totalQuestions => _questionsBank.length;
+
+  double get scorePercentage {
+    if (totalQuestions == 0) {
+      return 0;
+    }
+    return (_correctAnswersCount / totalQuestions) * 100;
   }
 }

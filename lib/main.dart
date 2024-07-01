@@ -46,17 +46,40 @@ class _QuizPageState extends State<QuizPage> {
 
     setState(() {
       if (quizDatabase.isFinished() == true) {
+        double scorePercentage = quizDatabase.scorePercentage;
+        String result = scorePercentage >= 50 ? 'Passed' : 'Failed';
         Alert(
           type: AlertType.success,
           context: context,
-          title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
+          title: 'Quiz Finished!',
+          // desc: 'You\'ve reached the end of the quiz.',
+          desc:
+              'You scored ${quizDatabase.correctAnswersCount} out of ${quizDatabase.totalQuestions}.\n'
+              'Percentage: ${scorePercentage.toStringAsFixed(2)}%\n'
+              'Result: $result',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+                setState(() {
+                  quizDatabase.reset();
+                  scoreKeeper = [];
+                });
+              },
+              child: const Text(
+                "Reset",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              color: Colors.red,
+            )
+          ],
         ).show();
 
         quizDatabase.reset();
         scoreKeeper = [];
       } else {
         if (pickUserAnswer == correctAnswer) {
+          quizDatabase.incrementCorrectAnswersCount();
           scoreKeeper.add(
             Icon(
               Icons.check,
