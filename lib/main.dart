@@ -3,7 +3,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:quizzler/quiz_database.dart';
 
 QuizDatabase quizDatabase = QuizDatabase();
-void main() => runApp(QuizzlerApp());
+void main() => runApp(const QuizzlerApp());
 
 class QuizzlerApp extends StatelessWidget {
   const QuizzlerApp({super.key});
@@ -14,7 +14,7 @@ class QuizzlerApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Quizzer App',
             style: TextStyle(color: Colors.white),
           ),
@@ -66,29 +66,26 @@ class _QuizPageState extends State<QuizPage> {
                   scoreKeeper = [];
                 });
               },
+              color: Colors.red,
               child: const Text(
                 "Reset",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              color: Colors.red,
             )
           ],
         ).show();
-
-        quizDatabase.reset();
-        scoreKeeper = [];
       } else {
         if (pickUserAnswer == correctAnswer) {
           quizDatabase.incrementCorrectAnswersCount();
           scoreKeeper.add(
-            Icon(
+            const Icon(
               Icons.check,
               color: Colors.green,
             ),
           );
         } else {
           scoreKeeper.add(
-            Icon(
+            const Icon(
               Icons.close,
               color: Colors.red,
             ),
@@ -108,12 +105,12 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
                 quizDatabase.getQuestionText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 25.0,
                 ),

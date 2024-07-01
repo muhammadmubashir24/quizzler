@@ -4,13 +4,13 @@ int _questionsNumber = 0;
 int _correctAnswersCount = 0;
 
 class QuizDatabase {
-  List<Questions> _questionsBank = [
+  final List<Questions> _questionsBank = [
     Questions('Some cats are actually allergic to humans', true),
     Questions('You can lead a cow down stairs but not up stairs.', false),
     Questions(
         'Approximately one quarter of human bones are in the feet.', true),
     Questions('A slug\'s blood is green.', true),
-    Questions('Buzz Aldrin\'s mother\'s maiden name was \"Moon\".', true),
+    Questions('Buzz Aldrin\'s mother\'s maiden name was "Moon".', true),
     Questions('It is illegal to pee in the Ocean in Portugal.', true),
     Questions(
         'No piece of square dry paper can be folded in half more than 7 times.',
@@ -24,7 +24,7 @@ class QuizDatabase {
     Questions(
         'The total surface area of two human lungs is approximately 70 square metres.',
         true),
-    Questions('Google was originally called \"Backrub\".', true),
+    Questions('Google was originally called "Backrub".', true),
     Questions(
         'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
         true),
@@ -37,8 +37,6 @@ class QuizDatabase {
     if (_questionsNumber < _questionsBank.length - 1) {
       _questionsNumber++;
     }
-    print(_questionsNumber);
-    print(_questionsBank.length);
   }
 
   String getQuestionText() {
@@ -51,7 +49,6 @@ class QuizDatabase {
 
   bool isFinished() {
     if (_questionsNumber >= _questionsBank.length - 1) {
-      print('Now returning true = Quiz Finished');
       return true;
     } else {
       return false;
